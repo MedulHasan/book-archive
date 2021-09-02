@@ -1,4 +1,6 @@
 const resultField = document.getElementById('show-result');
+let searchInput = document.getElementById('search-input');
+const cls = document.getElementById('clsBtn');
 
 const rootDiv = document.createElement('div');
 rootDiv.classList.add('mb-3')
@@ -7,12 +9,13 @@ const h3 = document.createElement('h3');
 const h6 = document.createElement('h6');
 
 const collectData = () => {
-    const searchInput = document.getElementById('search-input');
-    const searchText = searchInput.value;
+    let searchText = searchInput.value;
     resultField.textContent = '';
     if (searchText === '') {
         errorMessage('Search field is empty!')
     } else {
+        // searchInput.value = '';
+        spinner('block');
         const URL = `https://openlibrary.org/search.json?q=${searchText}`;
         fetch(URL)
             .then(res => res.json())
@@ -21,6 +24,7 @@ const collectData = () => {
 }
 
 const errorMessage = (text) => {
+    searchInput.value = '';
     h3.innerText = text;
     h3.classList.add('error', 'text-center', 'text-danger', 'mt-4');
     rootDiv.appendChild(h3);
@@ -48,7 +52,6 @@ const displayResult = (docs) => {
         docs.forEach(element => {
             const bookTitle = element.title;
             const authorName = element.author_name;
-            // console.log(element.publish_date);
 
             const cover_i = element.cover_i;
             let imageURL = `https://covers.openlibrary.org/b/id/${cover_i}-M.jpg`;
@@ -58,6 +61,7 @@ const displayResult = (docs) => {
             cardDiv = createCard(cardDiv, bookTitle, authorName, imageURL, element.publish_date, element.first_publish_year);
         });
         resultField.appendChild(cardDiv);
+        spinner('none');
     }
 }
 
@@ -76,7 +80,7 @@ const createCard = (cardDiv, bookTitle, authorName, imageURL, publish_date, firs
 
     const cardTitle = document.createElement('h5');
     cardTitle.classList.add('card-title');
-    cardTitle.innerText = bookTitle;
+    cardTitle.innerText = `Name: ${bookTitle}`;
 
     const cardText1 = document.createElement('p');
     cardText1.classList.add('card-text');
@@ -86,15 +90,9 @@ const createCard = (cardDiv, bookTitle, authorName, imageURL, publish_date, firs
     cardText1.classList.add('card-text');
     findPublishDate(publish_date, first_publish_year, cardText2);
 
-    const btn = document.createElement('a');
-    btn.classList.add('btn', 'btn-primary');
-    btn.href = '#';
-    btn.innerText = 'Detail';
-
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardText1);
     cardBody.appendChild(cardText2);
-    cardBody.appendChild(btn);
     card.appendChild(img);
     card.appendChild(cardBody);
     cardDiv.appendChild(card);
@@ -123,11 +121,8 @@ const findPublishDate = (publish_date, first_publish_year, cardText) => {
         cardText.innerText = `Did not find publish date!`
     } else {
         for (const publish in publish_date) {
-            // console.log(element.publish_date[publish]);
             let publishDate = publish_date[publish].substr(-4);
-            // console.log(publishDate);
             if (publishDate == first_publish_year) {
-                // console.log(publish_date[publish]);
                 cardText.innerText = `First Publish: ${publish_date[publish]}`
             }
             else {
@@ -135,4 +130,22 @@ const findPublishDate = (publish_date, first_publish_year, cardText) => {
             }
         }
     }
+}
+
+const spinner = (displayShow) => {
+    const spin = document.getElementById('spinner');
+    spin.style.display = displayShow;
+}
+
+searchInput.addEventListener('keyup', function (event) {
+    if (event.keyCode === 8 && event.target.value === "") {
+        cls.style.display = 'none';
+    } else {
+        cls.style.display = 'block';
+    }
+})
+
+const clearInput = () => {
+    searchInput.value = '';
+    cls.style.display = 'none';
 }

@@ -19,8 +19,14 @@
             <!-- search field -->
             <div class="input-group">
                 <input id="search-input" type="text" class="form-control" placeholder="search book">
+                <button onclick="clearInput()" id="clsBtn" class="input-group-text"><i class="fas fa-times"></i></button>
                 <button onclick="collectData()" class="input-group-text"><i class="fas fa-search"></i></button>
               </div>
+        </div>
+
+        <!-- show spinner -->
+        <div id="spinner" class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
 
         <!-- show result -->

@@ -1,7 +1,7 @@
 h6 {
     margin-top: 20px;
+    margin-left: 20px;
     width: 880px;
-    text-align: center;
 }
 .card-parent {
     display: grid;
@@ -11,3 +11,20 @@ h6 {
 .card-image {
     height: 300px;
 }
+#spinner {
+    display: none;
+    margin: 0 auto;
+    margin-top: 200px;
+}
+#search-input {
+    border-right: none;
+}
+#clsBtn {
+    display: none;
+    background-color: #ffffff;
+    border-left: none;
+}
+.form-control:focus {
+    border-color: #CED4DA;
+    box-shadow: none;
+  }
