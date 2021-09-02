@@ -12,12 +12,20 @@
 </head>
 <body>
     <div class="container my-5">
+        
         <div class="w-50 mx-auto">
             <h2 class="text-center mb-3">Find Your Book</h2>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="search book">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
+
+            <!-- search field -->
+            <div class="input-group">
+                <input id="search-input" type="text" class="form-control" placeholder="search book">
+                <button onclick="collectData()" class="input-group-text"><i class="fas fa-search"></i></button>
               </div>
+        </div>
+
+        <!-- show result -->
+        <div id="show-result">
+
         </div>
     </div>
 

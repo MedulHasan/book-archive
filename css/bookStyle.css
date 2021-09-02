@@ -1,0 +1,13 @@
+h6 {
+    margin-top: 20px;
+    width: 880px;
+    text-align: center;
+}
+.card-parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+}
+.card-image {
+    height: 300px;
+}
