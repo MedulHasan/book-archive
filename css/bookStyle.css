@@ -3,6 +3,7 @@ h6 {
     margin-left: 20px;
     width: 880px;
 }
+/* 4 card a row */
 .card-parent {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -11,6 +12,8 @@ h6 {
 .card-image {
     height: 300px;
 }
+
+/* fit spinner position */
 #spinner {
     display: none;
     margin: 0 auto;

@@ -8,11 +8,12 @@ rootDiv.classList.add('mb-3')
 const h3 = document.createElement('h3');
 const h6 = document.createElement('h6');
 
+// search button click to collect data
 const collectData = () => {
     let searchText = searchInput.value;
     resultField.textContent = '';
     if (searchText === '') {
-        errorMessage('Search field is empty!')
+        errorMessage('Search by typing something!')
     } else {
         // searchInput.value = '';
         spinner('block');
@@ -23,6 +24,7 @@ const collectData = () => {
     }
 }
 
+// error message
 const errorMessage = (text) => {
     searchInput.value = '';
     h3.innerText = text;
@@ -31,18 +33,21 @@ const errorMessage = (text) => {
     resultField.appendChild(rootDiv);
 }
 
+// display result
 const resultShow = (data) => {
     resultField.textContent = '';
     totalResultFound(data.numFound);
     displayResult(data.docs);
 }
 
+// find total result
 const totalResultFound = (numFound) => {
     h6.innerText = `About ${numFound} results found!`;
     h6.classList.add('mb-3')
     resultField.appendChild(h6);
 }
 
+// display result as a card
 const displayResult = (docs) => {
     let cardDiv = document.createElement('div');
     cardDiv.classList.add('card-parent');
@@ -65,6 +70,7 @@ const displayResult = (docs) => {
     }
 }
 
+// create card
 const createCard = (cardDiv, bookTitle, authorName, imageURL, publish_date, first_publish_year) => {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -100,6 +106,7 @@ const createCard = (cardDiv, bookTitle, authorName, imageURL, publish_date, firs
     return cardDiv;
 }
 
+// find author
 const findAuthor = (authorName, cardText) => {
     if (authorName === undefined) {
         cardText.innerText = `
@@ -116,6 +123,7 @@ const findAuthor = (authorName, cardText) => {
     }
 }
 
+// find publish date
 const findPublishDate = (publish_date, first_publish_year, cardText) => {
     if (publish_date === undefined && first_publish_year === undefined) {
         cardText.innerText = `Did not find publish date!`
@@ -132,11 +140,13 @@ const findPublishDate = (publish_date, first_publish_year, cardText) => {
     }
 }
 
+// show spinner
 const spinner = (displayShow) => {
     const spin = document.getElementById('spinner');
     spin.style.display = displayShow;
 }
 
+// toggle clear button 
 searchInput.addEventListener('keyup', function (event) {
     if (event.keyCode === 8 && event.target.value === "") {
         cls.style.display = 'none';
@@ -145,6 +155,7 @@ searchInput.addEventListener('keyup', function (event) {
     }
 })
 
+// clear input field
 const clearInput = () => {
     searchInput.value = '';
     cls.style.display = 'none';
